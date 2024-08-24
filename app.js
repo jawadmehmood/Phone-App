@@ -65,7 +65,13 @@ const phoneDetails = [
     }
 ]
 
+const getDataFromLocalStorage = JSON.parse(localStorage.getItem('cartItem'))
+
 let arr = [];
+if(getDataFromLocalStorage != null){
+    arr = getDataFromLocalStorage
+}
+
 const products = document.getElementById('products');
 
 for(let i = 0; i < phoneDetails.length; i++){
