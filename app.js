@@ -65,6 +65,7 @@ const phoneDetails = [
     }
 ]
 
+let arr = [];
 const products = document.getElementById('products');
 
 for(let i = 0; i < phoneDetails.length; i++){
@@ -73,12 +74,26 @@ for(let i = 0; i < phoneDetails.length; i++){
             <div class="card-body bg-dark text-light border border-light-subtle border-1 rounded">
               <h5 class="card-title">${phoneDetails[i].brand} ${phoneDetails[i].model}</h5>
               <h6 class="card-subtitle mt-2">Rs. ${phoneDetails[i].price}</h6>
-              <button class="btn btn-primary mt-4">Add to Cart</button>
+              <button class="btn btn-primary mt-4" onclick="addToCart(${i})">Add to Cart</button>
             </div>
         </div>
     `
 }
 
-function addToCart(){
-    
+function addToCart(index){
+    if(arr.includes(phoneDetails[index])){
+        phoneDetails[index].quantity += 1;
+    }
+    else{
+        phoneDetails[index].quantity = 1;
+        arr.push(phoneDetails[index]);
+    }
+    console.log(arr);    
 }
+
+const checkoutBtn = document.querySelector('#checkout-btn');
+
+checkoutBtn.addEventListener('click' , function(){
+    localStorage.setItem('cartItem' , JSON.stringify(arr));
+    window.location = 'checkout.html';
+})
